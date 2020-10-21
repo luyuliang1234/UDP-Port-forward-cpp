@@ -25,14 +25,14 @@ int set_addr()
     bind(locala, (SOCKADDR*)&localaddrA, sizeof(localaddrA));
     bind(localb, (SOCKADDR*)&localaddrB, sizeof(localaddrB));
     recvfrom(locala, bufa, 1024, 0, (SOCKADDR*)&clienta, &sizea);
-    cout << "A已经上线";
+    cout << "A宸茬粡涓婄嚎";
     recvfrom(localb, bufb, 1024, 0, (SOCKADDR*)&clientb, &sizea);
-    cout << "B已经上线";
+    cout << "B宸茬粡涓婄嚎";
     return 0;
 }
 int ab() {
     while (1)
-    memset(bufa, 0, sendto(localb, bufa, recv(locala, bufa, 1500, 0), 0, (SOCKADDR*)&clientb, sizea));
+    sendto(localb, bufa, recv(locala, bufa, 1500, 0), 0, (SOCKADDR*)&clientb, sizea);
 
 }
 int main()
@@ -40,6 +40,6 @@ int main()
     set_addr();
     thread t(ab);
     while (1)
-    memset(bufb, 0, sendto(locala, bufb, recv(localb, bufb, 1500, 0), 0, (SOCKADDR*)&clienta, sizea));
+    sendto(locala, bufb, recv(localb, bufb, 1500, 0), 0, (SOCKADDR*)&clienta, sizea);
 
 }
